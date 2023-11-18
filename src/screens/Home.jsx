@@ -75,11 +75,15 @@ const Home = ({ navigation, route }) => {
                                                   </View>
                                         </View>
                                         <View>
-                                                  <CustomButton
-                                                            title="Change Color"
-                                                            onPress={() => handlePress()}
-                                                            style={{ marginBottom: 60 }}
-                                                  />
+                                                  {
+                                                            counter < number && (
+                                                                      <CustomButton
+                                                                                title="Change Color"
+                                                                                onPress={() => handlePress()}
+                                                                                style={{ marginBottom: 60 }}
+                                                                      />
+                                                            )
+                                                  }
                                         </View>
                               </View>
                     </View>

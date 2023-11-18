@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, TextInput, Alert } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Alert, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import CustomButton from '../components/CustomButton'
 import FONTS from '../utils/FONTS'
 
 const GetStarted = ({ navigation }) => {
           const [number, setNumber] = useState("")
+          const [loading, setLoading] = useState(false)
 
           function handleGetStarted() {
                     if (number > 5) {
@@ -18,9 +19,11 @@ const GetStarted = ({ navigation }) => {
                               Alert.alert("Error", "Number is less than 1")
                     }
                     else {
+                              setLoading(true)
                               setTimeout(() => {
-                                        navigation.replace("Home", { count: number })
-                              } , 5000)
+                                        setLoading(false)
+                                        navigation.push("Home", { count: number })
+                              }, 5000)
                     }
           }
 
@@ -39,6 +42,14 @@ const GetStarted = ({ navigation }) => {
                                         onPress={() => handleGetStarted()}
                                         style={{ marginTop: 40 }}
                               />
+                              {
+                                        loading && (
+                                                  <View style={{ position: "absolute", bottom: 40, right: 0, left: 0, flexDirection : "row", alignItems : "center", justifyContent : "center" }} >
+                                                            <ActivityIndicator size="small" color="tomato" style={{marginRight : 5, marginBottom : 2}} />
+                                                            <Text style={{ fontFamily: FONTS.MEDIUM, textAlign: "center", color: "#000" }} >{`Loading in 5 seconds`}</Text>
+                                                  </View>
+                                        )
+                              }
                     </View>
           )
 }
